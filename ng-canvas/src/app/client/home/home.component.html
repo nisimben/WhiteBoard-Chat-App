@@ -1,0 +1,25 @@
+<p>home works!</p>
+<h1>welcome back {{ user }} !! </h1>
+<h2>Drawing with mouse events</h2>
+<canvas id="draw" #canvas></canvas>
+<mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="1" max="100000"></mat-slider>
+
+<p ngDefaultControl [(ngModel)]="lineWidth">current line Weight : {{lineWidth }}</p>
+<button class="reset" (click)="clearCanvas()">clear</button>
+<button class="enlargeLine" (click)="enlargeLine()">BOLDER LINE +</button>
+<button class="lowLine" (click)="lowLine()">THINER LINE - </button>
+<input [(colorPicker)]="markerColor" [style.background]="markerColor"/>
+
+
+<div class="chat-main">
+  <h2>Chat Erea</h2>
+  <div *ngFor="let message of messages">
+    <div *ngIf="user" class="msg-bubble">
+      <h6>{{user}}</h6>{{message}}
+    </div>
+
+  </div>
+</div>
+
+<input class="input-chat" [(ngModel)]="message" (keyup)="$event.keyCode == 13 && sendMessage()" />
+<button class="send-btn" (click)="sendMessage()">Send</button>
