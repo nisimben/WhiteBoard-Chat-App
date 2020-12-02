@@ -8,10 +8,10 @@ import { UserDto } from 'src/models/user.dto';
 export class UserService {
     constructor(private userRepository: UserRepository) { }
 
-     findUserDto(email: string,password:string): Promise<User> {
-        console.log(email,password,"find");
+     findUserDto(username: string,password:string): Promise<User> {
+        console.log(username,password,"find");
         
-        return  this.userRepository.findOne({username: email,password: password })
+        return  this.userRepository.findOne({username,password})
     }
     async createUser(createDto:UserDto) {
         const user = new User()

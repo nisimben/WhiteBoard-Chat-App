@@ -27,13 +27,13 @@ export class UserController {
     constructor(private userService:UserService){}
     
     @Post('login')
-    async findCurrentUser(@Body('email') email:string,@Body('password') password:string ){
-        this.userService.findUserDto(email,password).then(user =>{
+    async findUserByUsernameAndPassword(@Body('username') username:string,@Body('password') password:string ){
+        this.userService.findUserDto(username,password).then(user =>{
             console.log(user);
             
         })
         
-        return await this.userService.findUserDto(email,password)
+        return await this.userService.findUserDto(username,password)
 
     }
     @Post()
