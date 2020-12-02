@@ -1,5 +1,5 @@
-<p>home works!</p>
-<h1>welcome back {{ user }} !! </h1>
+
+<h1>Enjoy Your App {{ user }} !! </h1>
 <h2>Drawing with mouse events</h2>
 <canvas id="draw" #canvas></canvas>
 <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="1" max="100000"></mat-slider>
@@ -8,7 +8,9 @@
 <button class="reset" (click)="clearCanvas()">clear</button>
 <button class="enlargeLine" (click)="enlargeLine()">BOLDER LINE +</button>
 <button class="lowLine" (click)="lowLine()">THINER LINE - </button>
-<input [(colorPicker)]="markerColor" [style.background]="markerColor"/>
+<button class="lowLine" (click)="eraser()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+
+<input [(colorPicker)]="markerColor" [style.background]="markerColor" value="Pick a Color"/>
 
 
 <div class="chat-main">

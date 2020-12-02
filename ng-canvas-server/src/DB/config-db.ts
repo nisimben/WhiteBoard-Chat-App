@@ -14,7 +14,7 @@ export class ConfigDb implements TypeOrmOptionsFactory{
             password: 'qa12345',
             database: 'canvas-DB',
             synchronize: true,
-            logging: true,
+            logging: false,
             autoLoadEntities: true,
         }
     }

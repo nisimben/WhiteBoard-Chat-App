@@ -1,9 +1,10 @@
 <div class="row">
     <div class="col-md-6 offset-md-3 mt-4">
-        <h3>Login</h3>
+        
         <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
             
-           <span *ngIf="result !== null"><h1><span>Welcome {{result}} !!</span></h1><br><h3>hit the button login</h3></span>
+           <span *ngIf="result !== null"><h1><span>{{result}} !!</span></h1><br>
+           <h3>Please Login and hit the button Login</h3></span>
            <!-- <div class="alert-danger"
             *ngIf="notRecognized !== null">{{notRecognized}}
             <button type="button" >x</button>
@@ -47,8 +48,12 @@
 
             
             <button type="submit" [disabled]='f.invalid'
-            (click)="sendName()"
+           
             class="btn btn-primary">Login <i class="fa fa-sign-in"></i></button>
+            <button type="button" 
+            (click)="logOut()"
+            
+            class="btn btn-danger">LogOut <i class="fa fa-sign-out" aria-hidden="true"></i></button>
             
         </form>
     </div>

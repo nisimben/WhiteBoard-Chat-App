@@ -34,17 +34,12 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
   @SubscribeMessage('msgToServer')
   handleMessage(client: Socket, payload: string) {
-    console.log(payload);
     console.log(client.id);
-
-    // return{event:'msgToClient',data:payload}
     this.server.emit('msgToClient', payload)
   }
   @SubscribeMessage('drawToServer')
   handleCordinates(client: any, payload: string) {
-    console.log(payload);
     console.log(client.id);
-    // return{event:'msgToClient',data:payload}
     this.server.emit('drawToClient', payload)
   }
 }

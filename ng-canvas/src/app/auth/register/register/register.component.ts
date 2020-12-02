@@ -10,15 +10,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-result:any
+   result:string 
   constructor(public svDb:DbService ,private router:Router) { }
+  
   onSubmit(f: NgForm) {
     
     // adding user to list array
-    this.svDb.userList.push(f.value)
+    // this.svDb.userList.push(f.value)
     
-    this.result = this.svDb.getUser()
-    this.svDb.users.next(f.value.name)
+    // this.result = this.svDb.getUser()
+    // this.svDb.users.next(f.value.name)
+
+    /*
+    Data |Base connection
+    */
+
+    this.result = f.value.name
+    localStorage.setItem("userName",this.result)
+    console.log(`my name ${this.result}`);
+    
+    this.svDb.post(f.value.name,f.value.email,f.value.password).subscribe()
+    
    
     this.router.navigate(['/login'])
     
@@ -26,8 +38,18 @@ result:any
 
 
   ngOnInit(): void {
-    this.svDb.users.subscribe(user => this.result = user)
-    console.log(this.result);
+   
+    if (localStorage.getItem("userName")) {
+      console.log("aa",localStorage.getItem("userName"));
+      this.svDb.isLogin$.next(true)
+      
+      this.result = localStorage.getItem("userName")
+      this.result =`Hello   ${this.result}   Please Go To Login Page`
+    }else{
+      // localStorage.removeItem('userName')
+      this.svDb.isLogin$.next(false)
+      this.result ='Hello Guest'
+    }
     
   }
 }

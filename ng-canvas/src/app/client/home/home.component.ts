@@ -12,30 +12,31 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-
-  user: string
+  isLogin:boolean
   room: string
   
   public cx: CanvasRenderingContext2D
   message: string
   messages: string[] = [];
   // lineWidth = 3
-
+  
   can = new Subject()
-
+  
   @Input() lineWidth = 5;
   @Input() public width = 900;
   @Input() public height = 500;
-
-  @Input() markerColor = '#0000ff';
-
-
-
+  
+  @Input() markerColor = ""
+  
+  
+  
   @ViewChild('canvas') canvas: ElementRef;
   @ViewChild('cursor ') cursor: ElementRef;
   socket = io('http://localhost:4000')
   constructor(private svDb: DbService, private chatService: ChatService) { }
- 
+  
+  user: string =localStorage.getItem("userName")
+  
   formatLabel(value: number) {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';
@@ -43,16 +44,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     return value;
   }
-  public drawLine(context, x1, y1, x2, y2) {
-    context.beginPath();
-    context.strokeStyle = 'black';
-    context.lineCap = 'round';
-    context.moveTo(x1 + 20, y1 + 20);
-    context.lineTo(x2 + 20, y2 + 20);
-    context.stroke();
-    context.closePath();
+  // public drawLine(context, x1, y1, x2, y2) {
+  //   context.beginPath();
+    // context.strokeStyle = 'black';
+  //   context.lineCap = 'round';
+  //   context.moveTo(x1 + 20, y1 + 20);
+  //   context.lineTo(x2 + 20, y2 + 20);
+  //   context.stroke();
+  //   context.closePath();
     
-  }
+  // }
   /**
    * CHAT
    */
@@ -81,7 +82,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     let y = 0;
     this.cx.lineCap = 'round';
   
-    this.cx.strokeStyle = '#000000';
+    // this.cx.strokeStyle = '#000000';
 
 
 
@@ -191,13 +192,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
       console.log('clear that canvas');
       this.cx.clearRect(0, 0, this.width, this.height);
     }
+    eraser() {
+      this.markerColor = "#FFFFFF";  
+    }
 
   ngOnInit(): void {
-    // subscribe to  DB Service
-    this.svDb.getUser().subscribe((val) => {
-      this.user = val
-      console.log(val,"getUser");
-    })
+   this.user = localStorage.getItem("userName")
+    
+   
+    
     // subscribe to Chat Service
     this.chatService.getMessages().subscribe((val) => {
       console.log(val,'getMessages');
@@ -207,6 +210,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.socket.on("drawToClient",function(data){
       this.drawOnCanvas(data.prevPos,data.currentPos,data.color, data.size);
   }.bind(this))
-  }
+}
 
 }

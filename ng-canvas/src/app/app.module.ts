@@ -14,6 +14,7 @@ import { ChatService } from './services/chat.service';
 import { HomeComponent } from './client/home/home.component';
 
 import { ColorPickerModule } from 'ngx-color-picker';
+import { HttpClientModule} from '@angular/common/http'
 
 
 
@@ -33,7 +34,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
     BrowserAnimationsModule,
     MatSliderModule,
     RouterModule,
-    ColorPickerModule  
+    ColorPickerModule,
+    HttpClientModule
   ],
   providers: [AuthGuard,ChatService],
   bootstrap: [AppComponent]

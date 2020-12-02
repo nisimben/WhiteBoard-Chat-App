@@ -8,6 +8,4 @@ export class AuthService {
   constructor(private router:Router) { }
   isAuthenticate = false;
 
-  
-
 }
