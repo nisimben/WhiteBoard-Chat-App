@@ -12,7 +12,7 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  isLogin:boolean
+  isLogin:boolean =false
   room: string
   
   public cx: CanvasRenderingContext2D
@@ -57,10 +57,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   /**
    * CHAT
    */
-  sendMessage() {
-    this.chatService.sendMessage(this.message);
-    this.message = '';
-  }
+  // sendMessage() {
+  //   this.chatService.sendMessage(this.message);
+  //   this.message = '';
+  // }
 
 
   /**
@@ -198,15 +198,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
    this.user = localStorage.getItem("userName")
+   this.svDb.isLogin$.next(true)
+  //  this.svDb.isRegister$.next(true)
     
    
     
     // subscribe to Chat Service
-    this.chatService.getMessages().subscribe((val) => {
-      console.log(val,'getMessages');
-      this.messages.push(val)
+    // this.chatService.getMessages().subscribe((val) => {
+    //   console.log(val,'getMessages');
+    //   this.messages.push(val)
 
-    }) 
+    // }) 
     this.socket.on("drawToClient",function(data){
       this.drawOnCanvas(data.prevPos,data.currentPos,data.color, data.size);
   }.bind(this))

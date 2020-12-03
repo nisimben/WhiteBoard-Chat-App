@@ -16,9 +16,12 @@ export class ChatService {
 
 
   public sendMessage(message) {
+    console.log('msgToServer',message);
+    
     this.socket.emit('msgToServer', message);
   }
   public getMessages = () => {
+
     return Observable.create((observer) => {
       this.socket.on('msgToClient', (data) => {
         console.log(data);

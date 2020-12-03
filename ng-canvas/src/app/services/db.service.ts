@@ -34,8 +34,9 @@ export class DbService {
   //   password: 1
   // }
   // ]
-  public users: BehaviorSubject<string> = new BehaviorSubject<string>(null)
+  // public users: BehaviorSubject<string> = new BehaviorSubject<string>(null)
   public isLogin$: Subject<boolean> = new Subject<boolean>()
+  public isRegister$: Subject<boolean> = new Subject<boolean>()
   // current = this.users.asObservable()
 
   post(username: string, email: string, password: string) {
@@ -58,10 +59,7 @@ export class DbService {
     return password
   }
   login(user:UserLogin) {
-    return this.http.post('http://localhost:4000/user/login', user).subscribe((data)=>{
-      console.log("asdsadsadsadsad",data);
-      
-    })
+    return this.http.post('http://localhost:4000/user/login', user)
   }
 
 }

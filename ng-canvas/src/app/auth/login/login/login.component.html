@@ -3,7 +3,7 @@
         
         <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
             
-           <span *ngIf="result !== null"><h1><span>{{result}} !!</span></h1><br>
+           <span *ngIf="result !== ' '"><h1><span>{{result}} !!</span></h1><br>
            <h3>Please Login and hit the button Login</h3></span>
            <!-- <div class="alert-danger"
             *ngIf="notRecognized !== null">{{notRecognized}}

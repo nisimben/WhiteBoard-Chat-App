@@ -9,15 +9,20 @@ import { Subject } from 'rxjs';
 })
 export class AppComponent {
   isLogin:boolean =false
+  isRegister:boolean =false
   result
   constructor(private svr:DbService){
     this.svr.isLogin$.subscribe((data:boolean)=>{
       this.isLogin = data
     })
+    this.svr.isRegister$.subscribe((data:boolean)=>{
+      this.isRegister = data
+    })
   }
   logOut(){
     localStorage.removeItem("userName")
     this.svr.isLogin$.next(false)
+    this.svr.isRegister$.next(false)
     this.result ="Hello Geust"
     
   }

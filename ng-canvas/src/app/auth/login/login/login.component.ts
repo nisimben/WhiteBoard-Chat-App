@@ -14,38 +14,47 @@ import { UserLogin } from 'src/app/models/UserDto';
 export class LoginComponent {
   notRecognized: string = null
   constructor(public srv: AuthService, public router: Router, public svDb: DbService) { }
-  result:string =" "
-  isLogin:boolean =false
+  result: string = ' '
+  isLogin: boolean = false
+  isRegister: boolean = true
   onSubmit(f: NgForm) {
-      
-    
-      // check if user in list Array
-      // if (f.value.name == this.svDb.getUser() && f.value.password == this.svDb.getPassword()) {
-          const newloginUser = new UserLogin()
-          newloginUser.email =f.value.name
-          newloginUser.password = f.value.password
-          console.log("aaa",newloginUser);
-          
-          this.svDb.login(newloginUser)
+
+    // this.result = f.value.name
+
+    // check if user in list Array
+    const newloginUser = new UserLogin()
+    newloginUser.username = f.value.name
+    newloginUser.password = f.value.password
+    console.log("aaa", newloginUser);
+
+    this.svDb.login(newloginUser).subscribe(data => {
+      if (data) {
+        console.log(data, "User");
+        this.result =  data['username']
+        localStorage.setItem("userName",this.result)
         this.srv.isAuthenticate = true;
-        console.log(this.result+' onsubmit login');
-        this.isLogin=true
+        console.log(this.result + ' onsubmit login');
+        this.isLogin = true
         console.log('yes');
         this.router.navigate(['/home'])
-        return
-      // }
-    
-    this.notRecognized = 'You Are Not Recognized';
-    console.log("no");
+
+      }
+      else {
+        this.notRecognized = 'You Are Not Recognized';
+        console.log("no");
+      }
+
+    })
+
   }
 
-   closeError(){
-     this.notRecognized=null
-   }
-   navigateToReset(){
+  closeError() {
+    this.notRecognized = null
+  }
+  navigateToReset() {
     this.router.navigate(['/reset'])
   }
-  logOut(){
+  logOut() {
     localStorage.removeItem("userName")
     this.svDb.isLogin$.next(false)
     this.result = 'Hello Guest'
@@ -54,16 +63,16 @@ export class LoginComponent {
 
 
   ngOnInit(): void {
-    
+    this.svDb.isRegister$.next(true)
     if (localStorage.getItem("userName")) {
       this.svDb.isLogin$.next(true)
-     this.result = localStorage.getItem("userName")
-      this.result = `Wellcome  ${this.result}`   
+      this.result = localStorage.getItem("userName")
+      this.result = `Wellcome  ${this.result}`
     }
-    else{
+    else {
       this.logOut()
     }
 
-    
+
   }
 };
