@@ -1,20 +1,23 @@
+<div class="all" [ngStyle]="{'background-image': getUrl()}">
+  <div class="container1 sm-4 med-4 lg-4 xlg-3">
 
-<ng-container style="background-color: aqua;">
-<h1>Enjoy Your App {{ user }} !! </h1>
-<h2>Drawing with mouse events</h2>
-<canvas id="draw" #canvas></canvas>
-<mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="1" max="100000"></mat-slider>
+    <h1 class=" p-3 text-white text-center">{{ user }} Wellcome To Collaborative Whiteboard !! </h1>
+    <div class="canvas bg-white">
 
-<p ngDefaultControl [(ngModel)]="lineWidth">current line Weight : {{lineWidth }}</p>
-<button class="reset" (click)="clearCanvas()">clear</button>
-<button class="enlargeLine" (click)="enlargeLine()">BOLDER LINE +</button>
-<button class="lowLine" (click)="lowLine()">THINER LINE - </button>
-<button class="lowLine" (click)="eraser()"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+      <canvas  id="draw " #canvas></canvas>
+    </div>
+    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="1" max="100000"></mat-slider>
+    <div class='nav sm-4 med-4 lg-4'>
+      <p ngDefaultControl [(ngModel)]="lineWidth">current line Weight : {{lineWidth }}</p>
+      <button class="reset" (click)="clearCanvas()">clear</button>
+      <button class="enlargeLine" (click)="enlargeLine()">BOLDER LINE +</button>
+      <button class="lowLine" (click)="lowLine()">THINER LINE - </button>
+      <button class="eareser" (click)="eraser()"><i class="fa fa-eraser"></i></button>
 
-<input [(colorPicker)]="markerColor" [style.background]="markerColor" value="Pick a Color"/>
+      <input [(colorPicker)]="markerColor" [style.background]="markerColor" value="Pick a Color" />
+    </div>
 
-
-<!-- <div class="chat-main">
+    <!-- <div class="chat-main">
   <h2>Chat Erea</h2>
   <div *ngFor="let message of messages">
     <div *ngIf="user" class="msg-bubble">
@@ -23,9 +26,11 @@
 
   </div>
 </div> -->
-  
+  </div>
+  <div class="container2 sm-4 med-4 lg-4 xlg-1">
+    <app-chat class="m-3"></app-chat>
+  </div>
+</div>
 
-<app-chat class="m-3"></app-chat>
-</ng-container>
 <!-- <input class="input-chat" [(ngModel)]="message" (keyup)="$event.keyCode == 13 && sendMessage()" />
 <button class="send-btn" (click)="sendMessage()">Send</button> -->

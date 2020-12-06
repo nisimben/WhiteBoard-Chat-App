@@ -44,6 +44,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     return value;
   }
+  getUrl()
+  {
+    return "url('https://upload.wikimedia.org/wikipedia/commons/b/b0/Raphael_Perez_Artist.jpg')";
+  }
+  
+
   // public drawLine(context, x1, y1, x2, y2) {
   //   context.beginPath();
     // context.strokeStyle = 'black';

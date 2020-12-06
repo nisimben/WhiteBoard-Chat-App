@@ -26,6 +26,6 @@ export class AppComponent {
     this.result ="Hello Geust"
     
   }
-  
+ 
   title = 'ng-canvas';
 }

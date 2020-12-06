@@ -16,8 +16,7 @@ export const storage ={
             const filename:string = path.parse(file.originalname).name.replace(/\s/g,'')+ uuid4();
             const extension:string = path.parse(file.originalname).ext;
             cb(null,`${filename},${extension}`)
-            console.log("sadassd");
-            
+            console.log("sadassd");            
         }
     })
 }
