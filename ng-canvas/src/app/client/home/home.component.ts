@@ -151,13 +151,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     
           // previous and current position with the offset
           const prevPos = {
-            x: res[0].clientX - rect.left,
-            y: res[0].clientY - rect.top
+            x: res[0].clientX +20 - rect.left,
+            y: res[0].clientY +20 - rect.top
           };
     
           const currentPos = {
-            x: res[1].clientX - rect.left,
-            y: res[1].clientY - rect.top
+            x: res[1].clientX +20 - rect.left,
+            y: res[1].clientY +20 - rect.top
           };
     
           // this method we'll implement soon to do the actual drawing
