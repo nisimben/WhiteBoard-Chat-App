@@ -7,8 +7,8 @@ import {
   OnGatewayDisconnect
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
-import { Socket } from 'socket.io';
-import { Server } from 'http';
+import { Socket,Server } from 'socket.io';
+
 
 @WebSocketGateway()
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -28,14 +28,25 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Client Connected  : ${client.id}`);
   }
+  @SubscribeMessage('joinRoom')
+  handelJoinRoom(client:Socket,payload:{name:string,room:string}){
+    client.join(payload.room)
+    client.to(payload.room).emit('joinedRoom',payload.name)
+  }
 
-
+  @SubscribeMessage('leaveRoom')
+  handelLeaveRoom(client:Socket,payload:{name:string,room:string}){
+    client.leave(payload.room)
+    client.to(payload.room).emit('leftRoom',payload.name)
+  }
 
 
   @SubscribeMessage('msgToServer')
-  handleMessage(client: Socket, payload: string) {
+  handleMessage(client: Socket, payload:{sender:string,room:string,message:string}) {
     console.log(client.id);
-    this.server.emit('msgToClient', payload)
+    console.log(payload);
+    
+    this.server.to(payload.room).emit('msgToClient', payload)
     console.log(payload);
     
   }
