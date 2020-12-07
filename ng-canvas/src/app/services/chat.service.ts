@@ -17,7 +17,6 @@ export class ChatService {
 
   public sendMessage(message) {
     console.log('msgToServer',message);
-    
     this.socket.emit('msgToServer', message);
   }
   public getMessages = () => {
