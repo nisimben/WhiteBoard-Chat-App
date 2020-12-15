@@ -13,21 +13,23 @@ export class ChatService {
     this.socket = io(this.url)
   }
 
-
+public joiningRoom(data){
+  this.socket.emit('joinRoom',data)
+}
 
   public sendMessage(message) {
     console.log('msgToServer',message);
     this.socket.emit('msgToServer', message);
   }
-  public getMessages = () => {
+  // public getMessages = () => {
 
-    return Observable.create((observer) => {
-      this.socket.on('msgToClient', (data) => {
-        console.log(data);
-        observer.next(data);
-      });
-    });
-  }
+  //   return Observable.create((observer) => {
+  //     this.socket.on('msgToClient', (data) => {
+  //       console.log(data);
+  //       observer.next(data);
+  //     });
+  //   });
+  // }
   public sendCordinates(data) {
     this.socket.emit('drawToServer', data)
   }

@@ -13,6 +13,7 @@ import { UserLogin } from '../models/UserDto';
 export class DbService {
   constructor(private http: HttpClient) { }
   newUser: User = new User()
+  $myUser:BehaviorSubject<any> = new BehaviorSubject(null)
   // userList = [{
   //   name: 'aaa',
   //   email: 'a@a.com',
@@ -39,18 +40,34 @@ export class DbService {
   public isRegister$: Subject<boolean> = new Subject<boolean>()
   // current = this.users.asObservable()
 
-  post(username: string, email: string, password: string) {
-
+  post(username: string, email: string, password: string ,room?:string) {
     this.newUser.username = username
     this.newUser.email = email
     this.newUser.password = password
-    return this.http.post('http://localhost:4000/user', this.newUser)
+    this.newUser.room =room
+    this.http.post('http://localhost:4000/user', this.newUser).subscribe(data =>{
+      console.log(data,"post service");
+      
+    return this.$myUser.next(data)
+      
+    })
   }
-  getUser() {
-    const username = this.newUser.username
-    console.log(username);
 
-    return username
+  updateUserRoom(roomName:string){
+    const userId = this.newUser['id'] ;   
+    console.log("eli---", roomName, userId);
+     
+    return this.http.put('http://localhost:4000/user/username', {roomName, userId}) ;
+  }
+
+
+  getUser(username:string) {
+    
+     this.http.get('http://localhost:4000/user/username').subscribe(data =>{
+       console.log(data,"service");
+       
+       return this.$myUser.next(data)
+    })
   }
   getPassword() {
     const password = this.newUser.password
@@ -59,7 +76,10 @@ export class DbService {
     return password
   }
   login(user:UserLogin) {
-    return this.http.post('http://localhost:4000/user/login', user)
+    return this.http.post<User>('http://localhost:4000/user/login', user)
+  }
+  getAll(){
+    return this.http.get('http://localhost:4000/user')
   }
 
 }

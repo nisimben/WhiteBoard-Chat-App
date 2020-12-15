@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     localStorage.setItem("userName",this.result)
     console.log(`my name ${this.result}`);
     
-    this.svDb.post(f.value.name,f.value.email,f.value.password).subscribe()
+    this.svDb.post(f.value.name,f.value.email,f.value.password)
     
    
     this.router.navigate(['/login'])

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEmail, IsString, IsJWT } from 'class-validator'
+import { IsNotEmpty, IsEmail, IsString, IsJWT, IsOptional } from 'class-validator'
 export class UserDto {
     @IsString()
     username?:string
@@ -13,4 +13,11 @@ export class UserDto {
 
     @IsJWT()
     token?:string
+    
+    @IsString()
+    @IsOptional()
+    room?:string
+
+    @IsOptional()
+    nickname?:string
 }

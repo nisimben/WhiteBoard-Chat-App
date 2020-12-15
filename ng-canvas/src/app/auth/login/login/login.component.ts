@@ -25,18 +25,21 @@ export class LoginComponent {
     const newloginUser = new UserLogin()
     newloginUser.username = f.value.name
     newloginUser.password = f.value.password
-    console.log("aaa", newloginUser);
+ 
 
     this.svDb.login(newloginUser).subscribe(data => {
       if (data) {
-        console.log(data, "User");
+        // send user data to service for chat componnet
+        this.svDb.$myUser.next(data) ;
+        this.svDb.newUser = data ;
+        console.log(data, "User login onsubmit");
         this.result =  data['username']
         localStorage.setItem("userName",this.result)
         this.srv.isAuthenticate = true;
         console.log(this.result + ' onsubmit login');
         this.isLogin = true
         console.log('yes');
-        this.router.navigate(['/home'])
+        this.router.navigate([`/home`])
 
       }
       else {

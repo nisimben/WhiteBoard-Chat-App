@@ -19,7 +19,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
 
   afterInit(server: Server) {
-    this.logger.log('init')
+    this.logger.log(`${server} init now`)
   }
 
   handleDisconnect(client: Socket) {
@@ -31,18 +31,22 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @SubscribeMessage('joinRoom')
   handelJoinRoom(client:Socket,payload:{name:string,room:string}){
     client.join(payload.room)
-    client.to(payload.room).emit('joinedRoom',payload.name)
+    client.to(payload.room).emit('joinedRoom',payload)
+    console.log('joinedRoom',payload);
+    
   }
 
   @SubscribeMessage('leaveRoom')
-  handelLeaveRoom(client:Socket,payload:{name:string,room:string}){
+  handelLeaveRoom(client:Socket,payload:{room:string,name:string,message: string}){
     client.leave(payload.room)
-    client.to(payload.room).emit('leftRoom',payload.name)
+    client.to(payload.room).emit('leftRoom',payload)
+    console.log('leftRoom',payload);
+    
   }
 
 
   @SubscribeMessage('msgToServer')
-  handleMessage(client: Socket, payload:{sender:string,room:string,message:string}) {
+  handleMessage(client: Socket, payload:{room:string,name:string,message: string ,updated_at: string}) {
     console.log(client.id);
     console.log(payload);
     

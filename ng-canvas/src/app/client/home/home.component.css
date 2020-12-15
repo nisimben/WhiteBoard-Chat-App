@@ -118,7 +118,7 @@ img{
   }
 }
 
-@media only screen and (min-width: 481px) and (max-width: 1025px) {
+@media only screen and (min-width: 480px) and (max-width: 1025px) {
   .med-4 {
       width: 100%
   }
@@ -135,13 +135,13 @@ img{
   
 }
 
-@media only screen and (min-width: 1026px) and (max-width: 1570px) {
+@media only screen and (min-width: 1025px) and (max-width: 1570px) {
   .lg-4 {
       width: 1000px;
   }
 } 
 
-@media only screen and (min-width: 1571px) {
+@media only screen and (min-width: 1570px) {
   .xlg-3 {
       width: 1000px;
       margin-right: 3%;
